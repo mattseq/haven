@@ -66,17 +66,23 @@ public class PlayerMovement : MonoBehaviour
           Debug.Log("run");
         }
 
-        Vector2 move = moveAction.ReadValue<Vector2>();
+        Vector2 move = rb.linearVelocity;
         if (move.x == 0) {
           animator.SetBool("run", false);
-        } else if (move.x == -1) {
+        } else if (move.x < 0) {
           if (isFacingRight) {
             Flip();
           }
-        } else if (move.x == 1) {
+        } else if (move.x > 0) {
           if (!isFacingRight) {
             Flip();
           }
+        }
+
+        if (groundHit) {
+          animator.SetBool("ground", true);
+        } else {
+          animator.SetBool("ground", false);
         }
 
 
