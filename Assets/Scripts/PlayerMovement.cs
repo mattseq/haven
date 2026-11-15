@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider2D boxCollider;
 
     private bool canDash = true;
+    Animator animator;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
         jumpAction = inputAsset.FindAction("Jump");
         dashAction = inputAsset.FindAction("Sprint");
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -46,12 +48,24 @@ public class PlayerMovement : MonoBehaviour
           Debug.Log(wallLeftHit.distance);
           canDash = true;
         }
+
+        // if (!wallLeftHit && !wallRightHit) {
+        // }
         
         if (!(wallLeftHit || wallRightHit) && groundHit) {
           Vector2 moveValue = moveAction.ReadValue<Vector2>();
 
           rb.linearVelocity = new Vector2(moveValue.x, rb.linearVelocity.y);
+
+          animator.SetBool("run", true);
+          Debug.Log("run");
         }
+
+        Vector2 move = moveAction.ReadValue<Vector2>();
+        if (move.x == 0) {
+          animator.SetBool("run", false);
+        }
+
 
         if (groundHit) {
           Debug.Log("Ground");
