@@ -5,8 +5,14 @@ public class PlayerMovement : MonoBehaviour
 {
     private InputActionAsset inputAsset;
     private InputAction moveAction;
+    private InputAction jumpAction;
     private Vector2 velocity;
     Rigidbody2D rb;
+
+    public Transform wallLeft;
+    public Transform wallRight;
+
+    float dist = 0.1f;
 
     private BoxCollider2D boxCollider;
 
@@ -15,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     {
         inputAsset = InputSystem.actions;
         moveAction = inputAsset.FindAction("Move");
+        jumpAction = inputAsset.FindAction("Jump");
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -26,6 +33,20 @@ public class PlayerMovement : MonoBehaviour
 
         rb.linearVelocity = new Vector2(moveValue.x, rb.linearVelocity.y);
 
-        Debug.Log(moveValue.x);
+        int notPlayerMask = ~(LayerMask.GetMask("Player") | LayerMask.GetMask("Ignore Raycast"));
+        RaycastHit2D wallLeftHit = Physics2D.Raycast(wallLeft.position, -transform.right, dist);
+        RaycastHit2D wallRightHit = Physics2D.Raycast(wallRight.position, transform.right, dist);
+
+        if (wallRightHit) {
+          Debug.Log(wallRightHit.distance);
+        }
+        if (wallLeftHit) {
+          Debug.Log(wallLeftHit.distance);
+        }
+
+        if (jumpAction.WasPressedThisFrame()) {
+          Debug.Log("Jump");
+          rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y + 5.0f);
+        }
     }
 }
