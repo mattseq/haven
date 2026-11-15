@@ -3,7 +3,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private bool isFacingRight = true;
+
+
     private InputActionAsset inputAsset;
+
     private InputAction moveAction;
     private InputAction jumpAction;
     private InputAction dashAction;
@@ -64,6 +68,14 @@ public class PlayerMovement : MonoBehaviour
         Vector2 move = moveAction.ReadValue<Vector2>();
         if (move.x == 0) {
           animator.SetBool("run", false);
+        } else if (move.x == -1) {
+          if (isFacingRight) {
+            Flip();
+          }
+        } else if (move.x == 1) {
+          if (!isFacingRight) {
+            Flip();
+          }
         }
 
 
@@ -87,4 +99,12 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
+  protected void Flip()    
+  {
+    isFacingRight = !isFacingRight;
+  
+    Vector3 theScale = transform.localScale;
+    theScale.x *= -1;
+    transform.localScale = theScale;
+  }
 }
