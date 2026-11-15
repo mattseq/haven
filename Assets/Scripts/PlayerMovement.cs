@@ -31,11 +31,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        Vector2 moveValue = moveAction.ReadValue<Vector2>();
-
-        rb.linearVelocity = new Vector2(moveValue.x, rb.linearVelocity.y);
-
         int notPlayerMask = ~(LayerMask.GetMask("Player") | LayerMask.GetMask("Ignore Raycast"));
         RaycastHit2D wallLeftHit = Physics2D.Raycast(wallLeft.position, -transform.right, dist);
         RaycastHit2D wallRightHit = Physics2D.Raycast(wallRight.position, transform.right, dist);
@@ -47,6 +42,13 @@ public class PlayerMovement : MonoBehaviour
         if (wallLeftHit) {
           Debug.Log(wallLeftHit.distance);
         }
+        
+        if (!wallLeftHit && !wallRightHit && groundHit) {
+          Vector2 moveValue = moveAction.ReadValue<Vector2>();
+
+          rb.linearVelocity = new Vector2(moveValue.x, rb.linearVelocity.y);
+        }
+
         if (groundHit) {
           Debug.Log("Ground");
 
@@ -56,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y + 5.0f);
           }
 
-          // TODO: dash
+          canDash = true;
         }
 
         // if (canDash && ) {
