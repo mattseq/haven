@@ -22,8 +22,8 @@ public class PlayerMovement : MonoBehaviour
 
     private BoxCollider2D boxCollider;
 
-    private bool canDash = true;
-    private bool canJump = true;
+    public bool canDash = true;
+    public bool canJump = true;
     Animator animator;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

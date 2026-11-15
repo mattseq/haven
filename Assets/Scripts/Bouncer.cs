@@ -21,6 +21,8 @@ public class Bouncer : MonoBehaviour
       Debug.Log("Bounce collision");
       if (collision.collider.name == "Player") {
           collision.rigidbody.linearVelocity = new Vector2(bounceHorizontal, 5.0f);
+          collision.gameObject.GetComponent<PlayerMovement>().canDash = true;
+          collision.gameObject.GetComponent<PlayerMovement>().canJump = true;
       }
     }
 }
