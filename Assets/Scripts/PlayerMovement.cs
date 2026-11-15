@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
     private InputActionAsset inputAsset;
     private InputAction moveAction;
     private InputAction jumpAction;
+    private InputAction dashAction;
     private Vector2 velocity;
     Rigidbody2D rb;
 
@@ -25,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
         inputAsset = InputSystem.actions;
         moveAction = inputAsset.FindAction("Move");
         jumpAction = inputAsset.FindAction("Jump");
+        dashAction = inputAsset.FindAction("Sprint");
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -38,12 +40,14 @@ public class PlayerMovement : MonoBehaviour
 
         if (wallRightHit) {
           Debug.Log(wallRightHit.distance);
+          canDash = true;
         }
         if (wallLeftHit) {
           Debug.Log(wallLeftHit.distance);
+          canDash = true;
         }
         
-        if (!wallLeftHit && !wallRightHit && groundHit) {
+        if (!(wallLeftHit || wallRightHit) && groundHit) {
           Vector2 moveValue = moveAction.ReadValue<Vector2>();
 
           rb.linearVelocity = new Vector2(moveValue.x, rb.linearVelocity.y);
@@ -55,15 +59,18 @@ public class PlayerMovement : MonoBehaviour
           // jump
           if (jumpAction.WasPressedThisFrame()) {
             Debug.Log("Jump");
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y + 5.0f);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y + 3.0f);
           }
 
           canDash = true;
         }
 
-        // if (canDash && ) {
-        //
-        // }
+        if (canDash && dashAction.WasPressedThisFrame()) {
+            Debug.Log("dash");
+            Vector2 moveValue = moveAction.ReadValue<Vector2>();
+            rb.linearVelocity = new Vector2(moveValue.x * 3, 0f);
+            canDash = false;
+        }
 
     }
 }

@@ -168,6 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   wallLeft: {fileID: 4259181650683353439}
   wallRight: {fileID: 3746392331087531197}
+  ground: {fileID: 0}
 --- !u!50 &2694238694658381932
 Rigidbody2D:
   serializedVersion: 5
@@ -417,7 +418,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6773337495800032030}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GroundCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

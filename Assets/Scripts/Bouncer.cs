@@ -20,7 +20,7 @@ public class Bouncer : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision) {
       Debug.Log("Bounce collision");
       if (collision.collider.name == "Player") {
-          collision.rigidbody.linearVelocity = new Vector2(collision.rigidbody.linearVelocity.x + bounceHorizontal, collision.rigidbody.linearVelocity.y + 5.0f);
+          collision.rigidbody.linearVelocity = new Vector2(bounceHorizontal, 5.0f);
       }
     }
 }

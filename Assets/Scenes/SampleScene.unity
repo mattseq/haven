@@ -403,6 +403,7 @@ GameObject:
   - component: {fileID: 1412672970}
   - component: {fileID: 1412672969}
   - component: {fileID: 1412672972}
+  - component: {fileID: 1412672973}
   m_Layer: 0
   m_Name: Square (1)
   m_TagString: Untagged
@@ -558,6 +559,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1412672973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412672968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00d7f7487323a0e478a33f4f19e191c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Bouncer
+  bounceHorizontal: -2
 --- !u!4 &1631784487 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6773337495800032030, guid: 56b341edc1d913da29556b7560733de0, type: 3}
@@ -750,6 +764,10 @@ PrefabInstance:
     - target: {fileID: 7524680411067645145, guid: 05225dda76006671f8efabc1b51d7e5d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947828398535235277, guid: 05225dda76006671f8efabc1b51d7e5d, type: 3}
+      propertyPath: bounceHorizontal
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3195039460088008210, guid: 05225dda76006671f8efabc1b51d7e5d, type: 3}
