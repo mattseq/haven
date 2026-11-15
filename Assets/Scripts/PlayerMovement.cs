@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider2D boxCollider;
 
     private bool canDash = true;
+    private bool canJump = true;
     Animator animator;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -79,14 +80,16 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        if (groundHit) {
+        if (groundHit || wallLeftHit || wallRightHit) {
           Debug.Log("Ground");
 
-          // jump
-          if (jumpAction.WasPressedThisFrame()) {
-            Debug.Log("Jump");
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y + 3.0f);
-          }
+          // // jump
+          // if (jumpAction.WasPressedThisFrame()) {
+          //   Debug.Log("Jump");
+          //   rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y + 3.0f);
+          // }
+          
+          canJump = true;
 
           canDash = true;
         }
@@ -97,6 +100,11 @@ public class PlayerMovement : MonoBehaviour
             rb.linearVelocity = new Vector2(moveValue.x * 3, 0f);
             canDash = false;
             animator.SetTrigger("dash");
+        }
+        if (canJump && jumpAction.WasPressedThisFrame()) {
+            Debug.Log("jump");
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y + 3.0f);
+            canJump = false;
         }
 
     }
