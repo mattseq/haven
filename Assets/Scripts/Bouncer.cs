@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class Bouncer : MonoBehaviour
 {
+
+    public float bounceHorizontal = 2.0f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,7 +20,7 @@ public class Bouncer : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision) {
       Debug.Log("Bounce collision");
       if (collision.collider.name == "Player") {
-          collision.rigidbody.linearVelocity = new Vector2(collision.rigidbody.linearVelocity.x, collision.rigidbody.linearVelocity.y + 5.0f);
+          collision.rigidbody.linearVelocity = new Vector2(collision.rigidbody.linearVelocity.x + bounceHorizontal, collision.rigidbody.linearVelocity.y + 5.0f);
       }
     }
 }
