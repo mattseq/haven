@@ -96,6 +96,7 @@ public class PlayerMovement : MonoBehaviour
             Vector2 moveValue = moveAction.ReadValue<Vector2>();
             rb.linearVelocity = new Vector2(moveValue.x * 3, 0f);
             canDash = false;
+            animator.SetTrigger("dash");
         }
 
     }
