@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Finish : MonoBehaviour
 {
+    public GameObject blackScreen;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,6 +19,7 @@ public class Finish : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision) {
         if (collision.collider.name == "Player") {
             Application.Quit();
+            blackScreen.SetActive(true);
         }
     }
 }
